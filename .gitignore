@@ -8,10 +8,8 @@ node_modules/
 
 # Environment variables
 .env
-config/index.ts
 
 # Build output
-dist/
 build/
 
 # System files

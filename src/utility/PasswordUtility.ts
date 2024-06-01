@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { APP_SECRECT } from '../config';
+import { APP_SECRET } from '../config';
 import { Request } from "express";
 import { AuthPaylod } from '../dto';
 
@@ -18,13 +18,13 @@ export const ValidatePassword = async (enteredPassword: string, savedPassword: s
 }
 
 export const GenerateSignature = async (paylod: AuthPaylod) => {
-    return jwt.sign(paylod, APP_SECRECT, { expiresIn: '1d' });
+    return jwt.sign(paylod, APP_SECRET, { expiresIn: '1d' });
 }
 
 export const ValidateSignature = async (req: Request) => {
     const signature = req.get("Authorization");
     if (signature) {
-        const paylod = await jwt.verify(signature.split(' ')[1], APP_SECRECT) as AuthPaylod;
+        const paylod = await jwt.verify(signature.split(' ')[1], APP_SECRET) as AuthPaylod;
         req.user = paylod;
         return true;
     }
